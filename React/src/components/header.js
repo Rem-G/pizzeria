@@ -6,6 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 
+import { MemoryRouter as Router } from 'react-router';
+import { Link as RouterLink } from 'react-router-dom';
+
 import CustomMenu from './menu';
 
 import '../style/header.css';
@@ -41,26 +44,18 @@ function Header() {
             <Typography variant="h6" className={classes.title}>
             The Octopizza - Feeling Saucy Pizzeria
             </Typography>
-            <div style={{marginRight:"10vh"}}>
-              <Button color="inherit">Menu</Button>
-              <Button color="inherit">Commander</Button>
-            </div>
-
-            <Button variant="outlined" color="inherit">Se connecter</Button>
+              <Router>
+                <div style={{marginRight:"10vh"}}>
+                    <Button color="inherit" component={RouterLink} to="/menu">Menu</Button>
+                    <Button color="inherit" component={RouterLink} to="/order">Commander</Button>
+                </div>
+                  <Button variant="outlined" color="inherit" component={RouterLink} to="/login">Se connecter</Button>
+              </Router>
           </Toolbar>
         </AppBar>
       </div>
     );
   
 }
-
-
-// function Header() {
-//   return (
-//     <div className="Header">
-//       <h1> My list of Todo</h1>
-//     </div>
-//   );
-// }
 
 export default Header;

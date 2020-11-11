@@ -1,19 +1,42 @@
 import React from 'react';
 import Header from './components/header';
-import PizzaCards from './components/pizzacards'
+
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+
+import Order from "./pages/Order"
+//import PersoPizza from "./pages/PersoPizza"
+//import Register from "./pages/Register"
+import Login from "./pages/Login"
+// import Account from "./pages/Account"
+import Home from "./pages/Home"
+import Menu from "./pages/Menu"
 
 class App extends React.Component {
-  state = {
-    pizzas : []
-  }
 
   render() {
     return (
       <div className="App">
-        <Header/>
-        {/* <Todo todos={todos} addTodos={addTodos} formData={formData} updateFormData={updateFormData}/> */}
-        <PizzaCards />
-        {/* <CardPizza pizzas={pizzas} addPizzas={addPizzas} formData={formData} updateFormData={updateFormData}/> */}
+        <Header />
+          <BrowserRouter>
+            <Switch>
+            <div style={{marginRight:"10vh"}}>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+
+                <Route exact path="/menu">
+                  <Menu />
+                </Route>
+
+                <Route exact path="/order">
+                  <Order />
+                </Route>
+              </div>
+              <Route exact path="/login">
+                <Login />
+              </Route>
+            </Switch>
+          </BrowserRouter>
       </div>
     );
   }
