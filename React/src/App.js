@@ -12,8 +12,13 @@ import Home from "./pages/Home"
 import Menu from "./pages/Menu"
 
 class App extends React.Component {
-
   render() {
+    // const requestOptions = {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ nom: 'tempUser' })
+    // };
+
     return (
       <div className="App">
         <Header />

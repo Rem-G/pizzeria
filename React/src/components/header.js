@@ -1,4 +1,7 @@
 import React from 'react';
+import { MemoryRouter as Router } from 'react-router';
+import { Link } from 'react-router-dom'
+
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -6,8 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 
-import { MemoryRouter as Router } from 'react-router';
-import { Link as RouterLink } from 'react-router-dom';
 
 import CustomMenu from './menu';
 
@@ -31,7 +32,7 @@ function Header() {
   
     }));
 
-    const classes = useStyles();
+    const classes = useStyles();   
 
     return (
       <div className={classes.root}>
@@ -46,10 +47,10 @@ function Header() {
             </Typography>
               <Router>
                 <div style={{marginRight:"10vh"}}>
-                    <Button color="inherit" component={RouterLink} to="/menu">Menu</Button>
-                    <Button color="inherit" component={RouterLink} to="/order">Commander</Button>
+                    <Button color="inherit" component={Link} to="/menu">Menu</Button>
+                    <Button color="inherit" component={Link} to="/order">Commander</Button>
                 </div>
-                  <Button variant="outlined" color="inherit" component={RouterLink} to="/login">Se connecter</Button>
+                  <Button variant="outlined" color="inherit" component={Link} to="/login">Se connecter</Button>
               </Router>
           </Toolbar>
         </AppBar>
