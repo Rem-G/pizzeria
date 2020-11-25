@@ -40,7 +40,7 @@ function Header({cart}) {
               <Router>
                 <div style={{marginRight:"10vh"}}>
                     <Button color="inherit" component={Link} to="/menu" >Menu</Button>
-                    <Button color="inherit" component={Link} to={{pathname: "/order", state: {cart: "test"}}} >Commander</Button>
+                    <Button color="inherit" component={Link} to={{pathname: "/order", state: {cart: "test"}}} >Ma commande</Button>
                 </div>
                   <Button variant="outlined" color="inherit" component={Link} to="/login">Se connecter</Button>
               </Router>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -40,7 +40,7 @@ const styles = {
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      addToCart([...cart, pizza._id]);
+      addToCart([...cart, pizza]);
     }
     return(
       <Card style={styles.root} variant="outlined">
