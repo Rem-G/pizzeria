@@ -11,41 +11,78 @@ import Login from "./pages/Login"
 import Home from "./pages/Home"
 import Menu from "./pages/Menu"
 
-class App extends React.Component {
-  render() {
-    // const requestOptions = {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ nom: 'tempUser' })
-    // };
+import { useState, useEffect } from 'react';
 
-    return (
-      <div className="App">
-        <Header />
-          <BrowserRouter>
-            <Switch>
-            <div style={{marginRight:"10vh"}}>
-                <Route exact path="/">
-                  <Home />
-                </Route>
+function App() {
 
-                <Route exact path="/menu">
-                  <Menu />
-                </Route>
+  const [pizzas, addPizza] = useState([]);
+  const [cart, addToCart] = useState([]);
 
-                <Route exact path="/order">
-                  <Order />
-                </Route>
-              </div>
-              <Route exact path="/login">
-                <Login />
+  return (
+    <div className="App">
+        <Header cart={cart} />
+        <BrowserRouter>
+          <Switch>
+          <div style={{marginRight:"10vh"}}>
+              <Route exact path="/">
+                <Home pizzas={pizzas} addPizza={addPizza} cart={cart} addToCart={addToCart} />
               </Route>
-            </Switch>
-          </BrowserRouter>
-      </div>
-    );
-  }
+
+              <Route exact path="/menu">
+                <Menu pizzas={pizzas} addPizza={addPizza} cart={cart} addToCart={addToCart} />
+              </Route>
+
+              <Route exact path="/order">
+                <Order />
+              </Route>
+            </div>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+    </div>
+  );
+
 }
+
+// class App extends React.Component {
+
+//   render() {
+
+
+//     // const requestOptions = {
+//     //   method: 'POST',
+//     //   headers: { 'Content-Type': 'application/json' },
+//     //   body: JSON.stringify({ nom: 'tempUser' })
+//     // };
+
+//     return (
+//       <div className="App">
+//           <BrowserRouter>
+//             <Switch>
+//             <div style={{marginRight:"10vh"}}>
+//                 <Route exact path="/">
+//                   <Home />
+//                 </Route>
+
+//                 <Route exact path="/menu">
+//                   <Menu />
+//                 </Route>
+
+//                 <Route exact path="/order">
+//                   <Order />
+//                 </Route>
+//               </div>
+//               <Route exact path="/login">
+//                 <Login />
+//               </Route>
+//             </Switch>
+//           </BrowserRouter>
+//       </div>
+//     );
+//   }
+// }
 
 
 // function App() {
