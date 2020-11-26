@@ -19,12 +19,10 @@ import CardPizza from "./pizzacard";
 
 function PizzaCards({pizzas, addPizza, cart, addToCart}){
 
-  const handleAddPizza = (pizza_name) => {
-    cart.map(pizza => {
-      if (pizza.nom === pizza_name){
-        cart.splice(cart.indexOf(pizza.nom));
-      }
-    })
+  const handleRemovePizza = (pizza) => {
+    const index = cart.indexOf(pizza);
+    cart = cart.splice(index);
+    addToCart(cart);
   }
 
   const fetchingData = () => {
@@ -77,7 +75,7 @@ function PizzaCards({pizzas, addPizza, cart, addToCart}){
                   <h5>Commande :</h5>
                   <ul style={{listStyle: "none", whiteSpace: "nowrap"}}>
                     {cart.map(c => (
-                        <li style={{display: "inline-block", margin: "0px"}}>{c.nom}<div onClick={e => handleAddPizza(e.target.value)}>✖</div></li>
+                        <li style={{margin: "0px"}}>{c.nom}<div onClick={() => handleRemovePizza(c)}>✖</div></li>
                     )
                     )}
                   </ul>
