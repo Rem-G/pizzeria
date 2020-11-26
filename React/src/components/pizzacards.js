@@ -1,6 +1,15 @@
 import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 
 import axios from "axios";
 import { Link } from 'react-router-dom'
@@ -9,6 +18,14 @@ import CardPizza from "./pizzacard";
 
 
 function PizzaCards({pizzas, addPizza, cart, addToCart}){
+
+  const handleAddPizza = (pizza_name) => {
+    cart.map(pizza => {
+      if (pizza.nom === pizza_name){
+        cart.splice(cart.indexOf(pizza.nom));
+      }
+    })
+  }
 
   const fetchingData = () => {
     axios
@@ -27,27 +44,49 @@ function PizzaCards({pizzas, addPizza, cart, addToCart}){
 
   return (
     <div>
-      <Grid container direction="row" alignItems="center" alignContent="center" justify="center" style={{ minHeight: '50vh', minWidth: '100vh' }}>
-          {pizzas.map((pizza) =>
-            (<Grid item
-                  xs={4}
-                  align="center">
+      <Container direction="row" alignItems="center" alignContent="center" justify="center" >
+        <Row>
+          <Col xs={10}>
+            <Grid container direction="row" alignItems="center" alignContent="center" justify="center" >
+              {pizzas.map((pizza) =>
+                (<Grid item
+                      xs={4}
+                      align="center">
 
-              <div key={pizza._id}
-                  style={{ margin:"5px", width:"300px"}}>
+                  <div key={pizza._id}
+                      style={{ margin:"5px", width:"300px"}}>
 
-                <CardPizza
-                    pizza={pizza}
-                    cart={cart}
-                    addToCart={addToCart}
-              />
-              </div>
+                    <CardPizza
+                        pizza={pizza}
+                        cart={cart}
+                        addToCart={addToCart}
+                  />
+                  </div>
+                </Grid>
+                ))}
+              <Grid item xs={12} align="center" style={{marginTop: "5vh"}}>
+                <Button variant="contained" component={Link} to={{pathname: "/order", state: {cart: {cart} }}} >Finaliser la commande</Button>
+              </Grid>
             </Grid>
-            ))}
-        <Grid item xs={12} align="center" style={{marginTop: '10vh'}}>
-          <Button variant="contained" component={Link} to={{pathname: "/order", state: {cart: {cart} }}} >Finaliser la commande</Button>
-        </Grid>
-      </Grid>
+          </Col>
+
+          <Col xs={2}  style={{marginTop: "0.6vh"}}>
+            <Card variant="outlined">
+              <CardContent >
+                <Typography align="center">
+                  <h5>Commande :</h5>
+                  <ul style={{listStyle: "none", whiteSpace: "nowrap"}}>
+                    {cart.map(c => (
+                        <li style={{display: "inline-block", margin: "0px"}}>{c.nom}<div onClick={e => handleAddPizza(e.target.value)}>✖</div></li>
+                    )
+                    )}
+                  </ul>
+                </Typography>
+              </CardContent>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     </div>
   )
 }
