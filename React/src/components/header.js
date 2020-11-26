@@ -1,12 +1,11 @@
 import React from 'react';
-import { MemoryRouter as Router } from 'react-router';
-import { Link } from 'react-router-dom'
+import {Link } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import '../style/header.css';
 
 function Header({cart}) {
@@ -35,15 +34,15 @@ function Header({cart}) {
           <Toolbar>
 
             <Typography variant="h6" className={classes.title}>
-            The Octopizza - Feeling Saucy Pizzeria
+              <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+                The Octopizza - Feeling Saucy Pizzeria
+              </Link>
             </Typography>
-              <Router>
-                <div style={{marginRight:"10vh"}}>
-                    <Button color="inherit" component={Link} to="/menu" >Menu</Button>
-                    <Button color="inherit" component={Link} to={{pathname: "/order", state: {cart: "test"}}} >Ma commande</Button>
-                </div>
-                  <Button variant="outlined" color="inherit" component={Link} to="/login">Se connecter</Button>
-              </Router>
+              <div style={{marginRight:"10vh"}}>
+                  <Button variant="outline-light" href="/menu" style={{marginRight: "5px"}}>Menu</Button>
+                  <Button variant="outline-light" href="/order">Ma commande</Button>
+              </div>
+                <Button variant="outline-light" href="/login">Se connecter</Button>
           </Toolbar>
         </AppBar>
       </div>

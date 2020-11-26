@@ -1,7 +1,9 @@
 import React from 'react';
 import Header from './components/header';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+
+import { BrowserRouter, Route } from "react-router-dom";
 
 import Order from "./pages/Order"
 //import PersoPizza from "./pages/PersoPizza"
@@ -11,7 +13,7 @@ import Login from "./pages/Login"
 import Home from "./pages/Home"
 import Menu from "./pages/Menu"
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function App() {
 
@@ -19,27 +21,24 @@ function App() {
   const [cart, addToCart] = useState([]);
 
   return (
+
     <div className="App">
-        <Header cart={cart} />
         <BrowserRouter>
-          <Switch>
-          <div style={{marginRight:"10vh"}}>
-              <Route exact path="/">
-                <Home pizzas={pizzas} addPizza={addPizza} cart={cart} addToCart={addToCart} />
-              </Route>
+          <Header cart={cart} />
+          <Route exact path="/" >
+            <Home />
+          </Route>
 
-              <Route exact path="/menu">
-                <Menu pizzas={pizzas} addPizza={addPizza} cart={cart} addToCart={addToCart} />
-              </Route>
+          <Route path="/menu">
+            <Menu pizzas={pizzas} addPizza={addPizza} cart={cart} addToCart={addToCart} />
+          </Route>
 
-              <Route exact path="/order">
-                <Order />
-              </Route>
-            </div>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-          </Switch>
+          <Route path="/order">
+            <Order />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
         </BrowserRouter>
     </div>
   );

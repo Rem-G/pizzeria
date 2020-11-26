@@ -3,8 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
 import axios from "axios";
-
-import { MemoryRouter as Router } from 'react-router';
 import { Link } from 'react-router-dom'
 
 import CardPizza from "./pizzacard";
@@ -47,7 +45,7 @@ function PizzaCards({pizzas, addPizza, cart, addToCart}){
             </Grid>
             ))}
         <Grid item xs={12} align="center" style={{marginTop: '10vh'}}>
-          <Button color="secondary" variant="contained" component={Link} to={{pathname: "/order", state: {cart: {cart} }}} >Finaliser la commande</Button>
+          <Button variant="contained" component={Link} to={{pathname: "/order", state: {cart: {cart} }}} >Finaliser la commande</Button>
         </Grid>
       </Grid>
     </div>

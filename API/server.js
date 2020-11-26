@@ -28,8 +28,22 @@ const mongoose = require('mongoose');
 
 //Create an application 
 const app = express();
-app.use(cors());
+const allowedOrigins = ["http://localhost:3000", "http://localhost:3001"];
 
+app.use(
+  cors({
+      origin: function(origin, callback) {
+          if (!origin) return callback(null, true);
+          if (allowedOrigins.indexOf(origin) === -1) {
+              var msg =
+                  "The CORS policy for this site does not " +
+                  "allow access from the specified Origin.";
+              return callback(new Error(msg), false);
+          }
+          return callback(null, true);
+      }
+  })
+); 
 //used to fetch the data from forms on HTTP POST, and PUT
 app.use(bodyParser.urlencoded({
 

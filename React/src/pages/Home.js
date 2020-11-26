@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import PizzaCards from '../components/pizzacards'
+import React, { useEffect } from 'react';
 
-function Home({pizzas, addPizza, cart, addToCart}){
+function Home(){
+
     return (
-        <PizzaCards pizzas={pizzas} addPizza={addPizza} cart={cart} addToCart={addToCart}/>
+        <h1>Home page</h1>
     )
 }
 
