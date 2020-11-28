@@ -1,6 +1,8 @@
-import React from 'react';
-import {Link } from "react-router-dom";
+import React, {useState} from 'react';
+import {Link, Redirect} from "react-router-dom";
 import Button from 'react-bootstrap/Button';
+// import Button from '@material-ui/core/Button';
+
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,7 +10,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import '../style/header.css';
 
-function Header({cart}) {
+function Header({user_token, setUserToken}) {
+  const [redirect, setRedirect] = useState(false);
+
   const useStyles = makeStyles((theme) => ({
       root: {
         flexGrow: 1,
@@ -28,6 +32,8 @@ function Header({cart}) {
 
     const classes = useStyles();
 
+    const handleSubmitSignout = () => {setUserToken(""); setRedirect(true)};
+
     return (
       <div className={classes.root}>
         <AppBar position="static" className={classes.appBar}>
@@ -38,13 +44,27 @@ function Header({cart}) {
                 The Octopizza - Feeling Saucy Pizzeria
               </Link>
             </Typography>
-              <div style={{marginRight:"10vh"}}>
-                  <Button variant="outline-light" href="/menu" style={{marginRight: "5px"}}>Menu</Button>
-                  <Button variant="outline-light" href="/order">Ma commande</Button>
+              <div style={{marginRight:"2vh"}}>
+                  <Button variant="outline-light" as={Link} to={{pathname: "/menu"}} style={{marginRight: "5px"}}>Menu</Button>
+                  <Button variant="outline-light" as={Link} to={{pathname: "/order"}}>Ma commande</Button>
               </div>
-                <Button variant="outline-light" href="/login">Se connecter</Button>
+                {user_token === "" && 
+                  <Button variant="outline-light" href="/login">Se connecter</Button>
+                }
+
+                {user_token !== "" &&
+                  <div>
+                    <Button variant="outline-light" as={Link} to={{pathname: "/profile"}} style={{marginRight: "5px"}}>Mon compte</Button>
+                    <Button variant="outline-light" onClick={handleSubmitSignout}>Se déconnecter</Button>
+                  </div>
+                }
           </Toolbar>
         </AppBar>
+
+        {redirect &&
+          <Redirect to="/" />
+        }
+
       </div>
     );
   

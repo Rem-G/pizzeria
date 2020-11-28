@@ -20,12 +20,14 @@ function App() {
 
   const [pizzas, addPizza] = useState([]);
   const [cart, addToCart] = useState([]);
+  const [user_token, setUserToken] = useState("");
 
+  
   return (
 
     <div className="App">
         <BrowserRouter>
-          <Header cart={cart} />
+          <Header user_token={user_token} setUserToken={setUserToken} />
           <Route exact path="/" >
             <Home />
           </Route>
@@ -37,8 +39,9 @@ function App() {
           <Route path="/order">
             <Order />
           </Route>
+
           <Route path="/login">
-            <Login />
+            <Login user_token={user_token} setUserToken={setUserToken}/>
           </Route>
         </BrowserRouter>
     </div>

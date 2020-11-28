@@ -54,7 +54,6 @@ const styles = {
         </CardContent>
         <CardActions style={styles.order}>
           <Button size="small" variant="contained" color="secondary" onClick={handleSubmit}>Commander</Button>
-          <Button variant="outlined" color="primary">Personnaliser</Button>
         </CardActions>
       </Card>
       

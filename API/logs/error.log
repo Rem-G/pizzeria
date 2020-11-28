@@ -80,3 +80,7 @@ Thu, 05 Nov 2020 08:54:42 GMT | ERROR  | HTTP 404: ask for:  http://localhost:30
 Mon, 23 Nov 2020 21:07:35 GMT | ERROR  | HTTP 404: ask for:  http://localhost:3000/api/v1/createClient
 Thu, 26 Nov 2020 20:09:08 GMT | ERROR  | HTTP 404: ask for:  http://localhost:3000/createClient/
 Thu, 26 Nov 2020 20:14:52 GMT | ERROR  | HTTP 404: ask for:  http://localhost:3000/api/v1/readCommandes
+Sat, 28 Nov 2020 17:31:44 GMT | ERROR  | HTTP 404: ask for:  http://localhost:3000/
+Sat, 28 Nov 2020 17:34:54 GMT | ERROR  | HTTP 404: ask for:  http://localhost:3000/
+Sat, 28 Nov 2020 17:37:40 GMT | ERROR  | HTTP 404: ask for:  http://localhost:3000/
+Sat, 28 Nov 2020 18:06:00 GMT | ERROR  | HTTP 404: ask for:  http://localhost:3000/

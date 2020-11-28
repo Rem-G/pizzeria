@@ -17,6 +17,15 @@ const http404 = require('./middleware/route404');
 //Access the path 
 const path = require('path');
 
+//used to reduce response body
+let compression = require('compression');
+
+//session allows to store data such as user data
+let session = require('express-session');
+
+//sessions are stored into MongoDB
+let MongoStore = require('connect-mongo')(session);
+
 //Used for logging
 const morgan = require("morgan");
 
@@ -28,22 +37,86 @@ const mongoose = require('mongoose');
 
 //Create an application 
 const app = express();
-const allowedOrigins = ["http://localhost:3000", "http://localhost:3001"];
+// const allowedOrigins = ["http://localhost:3000", "http://localhost:3001"];
 
-app.use(
-  cors({
-      origin: function(origin, callback) {
-          if (!origin) return callback(null, true);
-          if (allowedOrigins.indexOf(origin) === -1) {
-              var msg =
-                  "The CORS policy for this site does not " +
-                  "allow access from the specified Origin.";
-              return callback(new Error(msg), false);
-          }
-          return callback(null, true);
+// app.use(
+//   cors({
+//       origin: function(origin, callback) {
+//           if (!origin) return callback(null, true);
+//           if (allowedOrigins.indexOf(origin) === -1) {
+//               var msg =
+//                   "The CORS policy for this site does not " +
+//                   "allow access from the specified Origin.";
+//               return callback(new Error(msg), false);
+//           }
+//           return callback(null, true);
+//       }
+//   })
+// );
+
+app.use(cors());
+
+//Connecting to MongoDB (async/await approach)
+const connectDb = async () => {
+    await mongoose.connect('mongodb+srv://root:root@cluster0.tjbhq.mongodb.net/pizzeria?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology : true}).then(
+        () => {
+            console.log(chalk.green(`Connected to database`))
+            infoLogger.info("Connected to database");
+        },
+        error => {
+            console.error(chalk.red(`Connection error: ${error.stack}`))
+            process.exit(1)
+        }
+    )
+  }
+  
+  connectDb().catch(error => console.error(error))
+
+//Used for Jsonwebtoken (in login)
+const passport = require('passport');
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+
+
+// Passport Setup
+const User = require('./models/user');
+
+//setting session
+app.use(session({
+
+  resave: true,
+  saveUninitialized: true,
+  secret: 'mySecretKey',
+  store: new MongoStore({ url: 'mongodb+srv://root:root@cluster0.tjbhq.mongodb.net/pizzeria?retryWrites=true&w=majority', autoReconnect: true})
+
+}));
+
+var opts = {}
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = "My so secret sentence";
+
+passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+    User.findById(jwt_payload.id)
+    .then((user) => {
+      if (user) {
+        return done(null, user);
+      } else {
+        return done(null, false);
       }
-  })
-); 
+    }, (err) => {
+      return done(err, false);
+    });
+}));
+
+app.use(passport.initialize());
+
+//compress response body for better performance
+app.use(compression());
+
+//disable headers indicating pages are coming from an Express server
+app.disable('x-powered-by');
+
+
 //used to fetch the data from forms on HTTP POST, and PUT
 app.use(bodyParser.urlencoded({
 
@@ -77,33 +150,19 @@ loggers.add('errorLogger', {
 
 const infoLogger = loggers.get('infoLogger');
 
-//Connecting to MongoDB (async/await approach)
-const connectDb = async () => {
-    await mongoose.connect('mongodb+srv://root:root@cluster0.tjbhq.mongodb.net/pizzeria?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology : true}).then(
-        () => {
-            console.log(chalk.green(`Connected to database`))
-            infoLogger.info("Connected to database");
-        },
-        error => {
-            console.error(chalk.red(`Connection error: ${error.stack}`))
-            process.exit(1)
-        }
-    )
-  }
-  
-  connectDb().catch(error => console.error(error))
-
   
 //Accessing the routes for the user
 const pizzeriaRoutes = require('./routes/pizza');
 const pizzeriaIngredients = require('./routes/ingredient');
 const pizzeriaClients = require('./routes/client');
 const pizzeriaCommandes = require('./routes/commande');
+const auth = require('./routes/auth');
 
 require('./models/client');
 require('./models/commande');
 require('./models/ingredient');
 require('./models/pizza');
+require('./models/user');
 
 
 //Acces the routes 
@@ -111,6 +170,8 @@ app.use('/api/v1/', pizzeriaRoutes);
 app.use('/api/v1/', pizzeriaIngredients);
 app.use('/api/v1/', pizzeriaClients);
 app.use('/api/v1/', pizzeriaCommandes);
+app.use('/api/v1/', auth);
+
 
 
 //When there is no route that caught the incoming request

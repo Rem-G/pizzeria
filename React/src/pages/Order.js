@@ -36,7 +36,7 @@ function Order(){
         }
       };
 
-    const [pizzas, setPizzas] = useState([]);
+    const [pizzas_order, setPizzasOrder] = useState([]);
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
     const [modal, setShowModal] = useState(false);
@@ -47,11 +47,11 @@ function Order(){
     const get_cart = useLocation().state;
 
     useEffect(() => {
-        if (get_cart){setPizzas(get_cart.cart.cart);}
+        if (get_cart){setPizzasOrder(get_cart.cart.cart);}
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 
-    const prixPizzas = () => {let prix=0; pizzas.forEach(pizza => {prix += pizza.prix;}); return prix;}
+    const prixPizzas = () => {let prix=0; pizzas_order.forEach(pizza => {prix += pizza.prix;}); return prix;}
 
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = () => setShowModal(true);
@@ -74,7 +74,7 @@ function Order(){
                 method: 'post',
                 url: 'http://localhost:3000/api/v1/createCommande',
                 data : {
-                    pizzas: pizzas,
+                    pizzas: pizzas_order,
                     client: response.data._id
                 }
             }).then(res_order => {
@@ -95,9 +95,9 @@ function Order(){
             <Card style={styles.root} variant="outlined">
                 <CardContent style={styles.card_content}>
                     <h3>Votre commande :</h3>
-                    <h4>{pizzas.length} pizza(s)</h4>
+                    <h4>{pizzas_order.length} pizza(s)</h4>
                     <ul>
-                        {pizzas.map((pizza) => 
+                        {pizzas_order.map((pizza) => 
                             <li>{pizza.nom}</li>
                         )}
                     </ul>
@@ -110,7 +110,7 @@ function Order(){
             </CardActions>
             </Card>
 
-            {modal && pizzas.length > 0 &&
+            {modal && pizzas_order.length > 0 &&
                 <div>
                     <Modal
                     show={handleShowModal}

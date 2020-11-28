@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import PizzaCards from '../components/pizzacards'
 
 function Menu({pizzas, addPizza, cart, addToCart}){

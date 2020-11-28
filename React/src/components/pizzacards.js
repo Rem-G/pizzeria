@@ -2,14 +2,12 @@ import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
 
 import axios from "axios";
 import { Link } from 'react-router-dom'
@@ -20,7 +18,7 @@ import CardPizza from "./pizzacard";
 function PizzaCards({pizzas, addPizza, cart, addToCart}){
 
   const handleRemovePizza = () => {
-    addToCart(cart.filter((pizza) => pizza.id !== cart.id));
+    addToCart(cart.filter((pizza) => pizza.id === cart.id));
   }
 
   const fetchingData = () => {
@@ -72,12 +70,10 @@ function PizzaCards({pizzas, addPizza, cart, addToCart}){
                 <Typography align="center">
                   <h5>Commande :</h5>
                     {cart.map(c => (
-                      <Card>
-                        <CardContent>
-                          {c.nom}
-                          <Button size="small" onClick={handleRemovePizza}>Supprimer</Button>
-                        </CardContent>
-                      </Card>
+                      <div>
+                        <div style={{marginRight: "10px", marginBottom: "10px", display: "flex", flexDirection: "row", justifyContent: "space-around"}}>{c.nom}</div>
+                        <Button size="small" onClick={handleRemovePizza}>✖</Button>
+                      </div>
                     ))}
                 </Typography>
               </CardContent>
