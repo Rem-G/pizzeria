@@ -10,7 +10,7 @@ import Order from "./pages/Order"
 //import PersoPizza from "./pages/PersoPizza"
 //import Register from "./pages/Register"
 import Login from "./pages/Login"
-// import Account from "./pages/Account"
+import Profile from "./pages/Profile"
 import Home from "./pages/Home"
 import Menu from "./pages/Menu"
 
@@ -24,7 +24,6 @@ function App() {
 
   
   return (
-
     <div className="App">
         <BrowserRouter>
           <Header user_token={user_token} setUserToken={setUserToken} />
@@ -37,11 +36,15 @@ function App() {
           </Route>
 
           <Route path="/order">
-            <Order />
+            <Order user_token={user_token}/>
           </Route>
 
           <Route path="/login">
             <Login user_token={user_token} setUserToken={setUserToken}/>
+          </Route>
+
+          <Route path="/profile">
+            <Profile user_token={user_token} setUserToken={setUserToken}/>
           </Route>
         </BrowserRouter>
     </div>
@@ -52,7 +55,6 @@ function App() {
 // class App extends React.Component {
 
 //   render() {
-
 
 //     // const requestOptions = {
 //     //   method: 'POST',

@@ -19,4 +19,12 @@ router.put("/updateClient/:id", (req, res) => {
 
 });
 
+router.post("/readClient", (req, res) => {
+    controller.readClient(req, res);
+})
+
+router.post('/deleteClient', function(req, res) {
+    controller.deleteClient(req, res);
+  })
+
 module.exports = router;

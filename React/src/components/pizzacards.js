@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom'
 
 import CardPizza from "./pizzacard";
 
-
 function PizzaCards({pizzas, addPizza, cart, addToCart}){
 
   const handleRemovePizza = pizza => {
@@ -62,7 +61,7 @@ function PizzaCards({pizzas, addPizza, cart, addToCart}){
                 </Grid>
                 ))}
               <Grid item xs={12} align="center" style={{marginTop: "5vh"}}>
-                <Button variant="contained" component={Link} to={{pathname: "/order", state: {cart: {cart} }}} >Finaliser la commande</Button>
+                <Button variant="contained" component={Link} onClick={() => addToCart([])} to={{pathname: "/order", state: {cart: {cart} }}} >Finaliser la commande</Button>
               </Grid>
             </Grid>
           </Col>

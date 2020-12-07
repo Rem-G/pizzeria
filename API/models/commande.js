@@ -7,10 +7,14 @@ var CommandeSchema = new Schema({
       type: Schema.ObjectId,
       ref: 'Pizza',
   }],
-  client : [{
+  client : {
     type: Schema.ObjectId,
     ref: 'Client',
-  }],
+  },
+  createdAt : {
+    type : Date,
+    default : Date.now
+  }
 });
 
 module.exports = mongoose.model('Commande', CommandeSchema);

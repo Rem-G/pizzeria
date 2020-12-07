@@ -29,13 +29,23 @@ function Login({setUserToken}){
                         username: username,
                         password: password,
                     }
-                }).then(res => {
-                    if (res.status === 200){
-                        setUserToken(res.token);
-                        setRedirect(true);
-                    }
-                    else{
-                        setShowModalFail(true);
+                }).then(isSigned => {
+                    if (isSigned.status === 200 ){
+                        axios({
+                            method: 'post',
+                            url: 'http://localhost:3000/api/v1/createClient',
+                            data : {
+                                email: username,
+                            }
+                        }).then(res => {
+                            if (res.status === 200){
+                                setUserToken(res.data.token);
+                                setRedirect(true);
+                            }
+                            else{
+                                setShowModalFail(true);
+                            }
+                        });
                     }
                 });
             });
@@ -76,8 +86,8 @@ function Login({setUserToken}){
                     <Modal.Body>
                         <Form>
                             <Form.Group controlId="formBasiName">
-                                <Form.Label>Nom d'utilisateur</Form.Label>
-                                <Form.Control type="text" placeholder="Nom d'utilisateur" onChange={e => setUsername(e.target.value)}/>
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control type="text" placeholder="Email" onChange={e => setUsername(e.target.value)}/>
                             </Form.Group>
 
                             <Form.Group controlId="formBasicSurname">

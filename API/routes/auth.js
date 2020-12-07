@@ -27,5 +27,9 @@ router.get('/profile', passport.authenticate('jwt', { session: false }), functio
 
 });
 
+router.post('/deleteUser', function(req, res) {
+  controller.deleteUser(req, res);
+})
+
 
 module.exports = router;

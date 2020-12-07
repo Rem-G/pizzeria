@@ -9,9 +9,10 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import {useLocation, Redirect} from 'react-router-dom';
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 
-function Order(){
+function Order({user_token}){
     const styles = {
         root: {
             width: "30%",
@@ -39,6 +40,7 @@ function Order(){
     const [pizzas_order, setPizzasOrder] = useState([]);
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
+    const [email, setEmail] = useState("tempUser");
     const [modal, setShowModal] = useState(false);
     const [orderCheck, setShowModalCheck] = useState(false);
     const [orderFail, setShowModalFail] = useState(false);
@@ -48,6 +50,10 @@ function Order(){
 
     useEffect(() => {
         if (get_cart){setPizzasOrder(get_cart.cart.cart);}
+        if (user_token && user_token !== "") {
+            const user = jwt_decode(user_token);
+            setEmail(user.username);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 
@@ -68,6 +74,7 @@ function Order(){
             url: 'http://localhost:3000/api/v1/createClient',
             data : {
                 nom: name + " " + surname,
+                email: email,
             }
         }).then(response => {
             axios({
@@ -76,6 +83,33 @@ function Order(){
                 data : {
                     pizzas: pizzas_order,
                     client: response.data._id
+                }
+            }).then(res_order => {
+                setShowModal(false);
+                if (res_order.status === 200){
+                    setShowModalCheck(true);
+                }
+                else{
+                    setShowModalFail(true);
+                }
+            });
+        });
+    }
+
+    const handleSubmitCartClient = () => {
+        axios({
+            method: 'post',
+            url: 'http://localhost:3000/api/v1/readClient',
+            data : {
+                email: email,
+            }
+        }).then(response => {
+            axios({
+                method: 'post',
+                url: 'http://localhost:3000/api/v1/createCommande',
+                data : {
+                    pizzas: pizzas_order,
+                    client: response.data[0]._id
                 }
             }).then(res_order => {
                 setShowModal(false);
@@ -106,7 +140,12 @@ function Order(){
                     </Typography>
                 </CardContent>
             <CardActions style={styles.order}>
-                <Button size="small" variant="success" onClick={handleShowModal} >Valider</Button>
+                {email === "tempUser" &&
+                    <Button size="small" variant="success" onClick={handleShowModal} >Valider</Button>
+                }
+                {email !== "tempUser" &&
+                    <Button size="small" variant="success" onClick={handleSubmitCartClient} >Valider</Button>
+                }
             </CardActions>
             </Card>
 
@@ -131,6 +170,7 @@ function Order(){
                                     <Form.Label>Nom</Form.Label>
                                     <Form.Control type="text" placeholder="Nom" onChange={e => setSurname(e.target.value)}/>
                                 </Form.Group>
+
                             </Form>
                         </Modal.Body>
                         <Modal.Footer>

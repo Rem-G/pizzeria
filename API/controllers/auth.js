@@ -10,15 +10,16 @@ function signin(req, res) {
 
 	User.findOne({username: req.body.username}, function(err, user) {
 		if (err)
-			throw err;
+			{console.log(err);}
 
-		if (user.comparePassword(req.body.password)) {
+		else if (user && user.comparePassword(req.body.password)) {
             req.session.username = req.body.username;
 			req.session.logged = true;
 			res.status(200).json({token: createToken(user)});
 		}
-		else
-			res.sendStatus(400);
+		else{
+			res.status(400).json();
+		}
 	});
 }
 
@@ -31,14 +32,16 @@ function signup(req, res) {
 	user.password = req.body.password;
 
 	user.save((err, savedUser) => {
+		console.log(savedUser);
 		if (err){
 			console.log(err);
 			res.sendStatus(400);
 		}
 
+		else{
+			res.status(200).json();
+		}
 	});
-
-	res.sendStatus(200);
 }
 
 function signout(req, res) {
@@ -55,10 +58,22 @@ function profile(req, res) {
         res.send("Profile");
     else
 		res.sendStatus(400);
+}
 
+function deleteUser(req, res){
+	let User = require('../models/user');
+
+	User.deleteOne({username : req.body.username}, function(err, user) {
+		if (err) {
+			console.log(err);
+			res.sendStatus(500);
+		}
+		res.sendStatus(200);
+	})
 }
 
 module.exports.signin = signin;
 module.exports.signup = signup;
 module.exports.signout = signout;
 module.exports.profile = profile;
+module.exports.deleteUser = deleteUser;

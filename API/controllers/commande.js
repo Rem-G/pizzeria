@@ -31,8 +31,22 @@ function readCommandes(req, res) {
     });
  }
 
+ function readClientOrders(req, res) {
+
+    let Commande = require("../models/commande");
+
+    Commande.find({client : req.body.client})
+    .populate('pizzas')
+    .then((Commande) => {
+        res.status(200).json(Commande);
+    }, (err) => {
+        res.status(500).json(err);
+    });
+ }
+
 
 module.exports.createCommande = createCommande;
 module.exports.readCommandes = readCommandes;
+module.exports.readClientOrders = readClientOrders;
 
 

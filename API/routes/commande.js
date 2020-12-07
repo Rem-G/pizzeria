@@ -14,4 +14,8 @@ router.get("/readCommandes", (req, res) => {
     controller.readCommandes(req, res);
 });
 
+router.post("/readClientOrders", (req, res) => {
+    controller.readClientOrders(req, res);
+});
+
 module.exports = router;
