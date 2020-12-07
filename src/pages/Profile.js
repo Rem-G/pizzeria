@@ -30,14 +30,14 @@ function Profile({user_token, setUserToken}){
     const handleGetOrders = (email) => {
         axios({
             method: 'post',
-            url: 'http://localhost:3000/api/v1/readClient',
+            url: 'https://young-tundra-83368.herokuapp.com/api/v1/readClient',
             data : {
                 email: email,
             }
         }).then(response => {
             axios({
                 method: 'post',
-                url: 'http://localhost:3000/api/v1/readClientOrders',
+                url: 'https://young-tundra-83368.herokuapp.com/api/v1/readClientOrders',
                 data : {
                     client: response.data[0]._id
                 }
@@ -52,14 +52,14 @@ function Profile({user_token, setUserToken}){
     const handleDeleteAccount = () => {
         axios({
             method: 'post',
-            url: 'http://localhost:3000/api/v1/deleteUser',
+            url: 'https://young-tundra-83368.herokuapp.com/api/v1/deleteUser',
             data : {
                 username: email
             }
         }).then(response => {
             axios({
                 method: 'post',
-                url: 'http://localhost:3000/api/v1/deleteUser',
+                url: 'https://young-tundra-83368.herokuapp.com/api/v1/deleteUser',
                 data : {
                     email: email
                 }

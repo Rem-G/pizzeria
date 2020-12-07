@@ -71,7 +71,7 @@ function Order({user_token}){
     const handleSubmitCart = () => {
         axios({
             method: 'post',
-            url: 'http://localhost:3000/api/v1/createClient',
+            url: 'https://young-tundra-83368.herokuapp.com/api/v1/createClient',
             data : {
                 nom: name + " " + surname,
                 email: email,
@@ -79,7 +79,7 @@ function Order({user_token}){
         }).then(response => {
             axios({
                 method: 'post',
-                url: 'http://localhost:3000/api/v1/createCommande',
+                url: 'https://young-tundra-83368.herokuapp.com/api/v1/createCommande',
                 data : {
                     pizzas: pizzas_order,
                     client: response.data._id
@@ -99,14 +99,14 @@ function Order({user_token}){
     const handleSubmitCartClient = () => {
         axios({
             method: 'post',
-            url: 'http://localhost:3000/api/v1/readClient',
+            url: 'https://young-tundra-83368.herokuapp.com/api/v1/readClient',
             data : {
                 email: email,
             }
         }).then(response => {
             axios({
                 method: 'post',
-                url: 'http://localhost:3000/api/v1/createCommande',
+                url: 'https://young-tundra-83368.herokuapp.com/api/v1/createCommande',
                 data : {
                     pizzas: pizzas_order,
                     client: response.data[0]._id

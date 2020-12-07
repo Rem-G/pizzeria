@@ -25,7 +25,7 @@ function PizzaCards({pizzas, addPizza, cart, addToCart}){
 
   const fetchingData = () => {
     axios
-      .get("http://localhost:3000/api/v1/readPizzas/")
+      .get("https://young-tundra-83368.herokuapp.com/api/v1/readPizzas/")
       .then(response => {
          addPizza(response.data);
        }) // you have array in your response.data so add your data here
