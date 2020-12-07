@@ -103,3 +103,5 @@ Mon, 07 Dec 2020 07:43:26 GMT | ERROR  | HTTP 404: ask for:  http://localhost:30
 Mon, 07 Dec 2020 08:03:17 GMT | ERROR  | HTTP 404: ask for:  http://localhost:3000/api/v1/readClient
 Mon, 07 Dec 2020 08:03:53 GMT | ERROR  | HTTP 404: ask for:  http://localhost:3000/api/v1/readClient
 Mon, 07 Dec 2020 08:04:15 GMT | ERROR  | HTTP 404: ask for:  http://localhost:3000/api/v1/readClient
+Mon, 07 Dec 2020 10:34:14 GMT | ERROR  | HTTP 404: ask for:  http://localhost:3000/
+Mon, 07 Dec 2020 10:34:14 GMT | ERROR  | HTTP 404: ask for:  http://localhost:3000/favicon.ico
