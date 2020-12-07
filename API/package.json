@@ -1,5 +1,5 @@
 {
-  "name": "todo",
+  "name": "pizzeria",
   "version": "1.0.0",
   "description": "Node.js backend for Pizzeria",
   "main": "server.js",
