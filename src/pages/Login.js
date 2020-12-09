@@ -39,7 +39,7 @@ function Login({setUserToken}){
                         }
                     }).then(res => {
                         if (res.status === 200){
-                            setUserToken(res.data.token);
+                            setUserToken(isSigned.data.token);
                             setRedirect(true);
                         }
                         else{
