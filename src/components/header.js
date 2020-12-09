@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import {Link, Redirect} from "react-router-dom";
 import Button from 'react-bootstrap/Button';
-// import Button from '@material-ui/core/Button';
-
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -64,10 +62,8 @@ function Header({user_token, setUserToken}) {
         {redirect &&
           <Redirect to="/" />
         }
-
       </div>
-    );
-  
+    )
 }
 
 export default Header;

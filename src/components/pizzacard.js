@@ -42,6 +42,7 @@ const styles = {
       e.preventDefault();
       addToCart([...cart, pizza]);
     }
+    
     return(
       <Card style={styles.root} variant="outlined">
         <CardContent style={styles.card_content}>
@@ -53,51 +54,9 @@ const styles = {
           </Typography>
         </CardContent>
         <CardActions style={styles.order}>
-          <Button size="small" variant="contained" color="secondary" onClick={handleSubmit}>Commander</Button>
+          <Button size="small" variant="outlined" color="primary" onClick={handleSubmit}>Commander</Button>
         </CardActions>
       </Card>
-      
-    );
+    )
   }
-
-  
-  // class PizzaCard extends Component {
-
-  //   constructor(){
-  //     super();
-  //     this.handleChange = this.handleChange.bind(this);
-  //   }
-
-  //   handleChange = (e) => {
-  //     this.props.onCartChange(this.props.pizza._id);
-  //   }
-
-  //   organize_ingredients = (ingredients) => {
-  //     let str_ingredients = "";
-  //     ingredients.map((ingredient => (str_ingredients += " - "+ingredient.nom)))
-  //     return str_ingredients;
-  //   }
-
-  //   render() {
-  //     const cart = this.props.cart;
-  //     return(
-  //       <Card style={styles.root} variant="outlined">
-  //       <CardContent style={styles.card_content}>
-  //         <h3>{this.props.pizza.nom}</h3>
-  //         <h4>{this.props.pizza.prix}€</h4>
-  //         <Typography>
-  //           Ingredients : 
-  //           {this.organize_ingredients(this.props.pizza.ingredients)}
-  //         </Typography>
-  //       </CardContent>
-  //       <CardActions style={styles.order}>
-  //         <Button size="small" variant="contained" color="secondary" onClick={this.handleChange}>Commander</Button>
-  //         <Button variant="outlined" color="primary">Personnaliser</Button>
-  //       </CardActions>
-  //       </Card>
-        
-  //   );
-  //   }
-  // }
-  
   export default PizzaCard
